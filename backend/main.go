@@ -3,23 +3,40 @@ package main
 import (
 	"context"
 	"database/sql"
+	"fmt"
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/log"
 	_ "github.com/mattn/go-sqlite3"
 	"gotoolapi/lyric"
 	"gotoolapi/word"
 	"gotoolapi/word/db"
+	"os"
 )
 
 func main() {
 	ctx := context.Background()
-	database, err := sql.Open("sqlite3", "file:word2vec.db?cache=shared")
+
+	dbPath, err := os.Getwd()
+
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	dbPath = fmt.Sprintf("%s/data/word2vec.db", dbPath)
+	
+	if _, err := os.Stat(dbPath); os.IsNotExist(err) {
+		log.Fatal(err)
+	}
+
+	database, err := sql.Open("sqlite3", dbPath)
 
 	if err != nil {
 		log.Fatal(err)
 	}
 
 	app := fiber.New()
+
+	app.Static("/", "./public")
 
 	app.Get("/api/words", func(c *fiber.Ctx) error {
 		q := db.New(database)
@@ -113,7 +130,7 @@ func main() {
 		return c.Status(fiber.StatusOK).JSON(output)
 	})
 
-	err = app.Listen(":3000")
+	err = app.Listen(":8080")
 
 	if err != nil {
 		panic("Error starting the server :(")

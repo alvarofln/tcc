@@ -3,32 +3,18 @@ package main
 import (
 	"context"
 	"database/sql"
-	"fmt"
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/log"
 	_ "github.com/mattn/go-sqlite3"
 	"gotoolapi/lyric"
 	"gotoolapi/word"
 	"gotoolapi/word/db"
-	"os"
 )
 
 func main() {
 	ctx := context.Background()
 
-	dbPath, err := os.Getwd()
-
-	if err != nil {
-		log.Fatal(err)
-	}
-
-	dbPath = fmt.Sprintf("%s/data/word2vec.db", dbPath)
-
-	if _, err := os.Stat(dbPath); os.IsNotExist(err) {
-		log.Fatal(err)
-	}
-
-	database, err := sql.Open("sqlite3", dbPath)
+	database, err := sql.Open("sqlite3", "file:data/word2vec.db")
 
 	if err != nil {
 		log.Fatal(err)

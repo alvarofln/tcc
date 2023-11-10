@@ -9,7 +9,8 @@
 
     async function processLyric(title: string, body: string) {
         if (!body && !title || !browser){
-            return;
+            $processedLines = [];
+            return
         } 
         
         const response = await fetch(`/api/lyrics`, {

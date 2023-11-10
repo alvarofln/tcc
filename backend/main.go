@@ -23,7 +23,7 @@ func main() {
 	}
 
 	dbPath = fmt.Sprintf("%s/data/word2vec.db", dbPath)
-	
+
 	if _, err := os.Stat(dbPath); os.IsNotExist(err) {
 		log.Fatal(err)
 	}

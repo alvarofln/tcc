@@ -1,0 +1,9 @@
+version: "2"
+sql:
+  - schema: "word/schema.sql"
+    queries: "word/queries.sql"
+    engine: "sqlite"
+    gen:
+      go:
+        package: "db"
+        out: "word/db"

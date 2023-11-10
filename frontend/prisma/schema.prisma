@@ -1,0 +1,25 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Word {
+  id           Int           @id @default(autoincrement())
+  word         String        @unique
+  similar     SimilarWord[]
+  @@map("words")
+}
+
+model SimilarWord {
+  word_id         Int
+  word_similar_id Int
+  similarity      Float
+  similar            Word  @relation(fields: [word_similar_id], references: [id])
+
+  @@id([word_id, word_similar_id])
+  @@map("similar_words")
+}

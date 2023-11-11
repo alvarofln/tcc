@@ -1,11 +1,13 @@
 
 <script lang="ts">
 	import { browser } from "$app/environment";
+	import { debounce } from "$lib/debounce";
 	import type { LyricLine } from "$lib/models";
     import { title, body, processedLines } from "$lib/stores/LyricStore";
 
+   
 
-
+    const debouncedProcessLyric = debounce((title : string, body: string) => processLyric(title, body), 500);
 
     async function processLyric(title: string, body: string) {
         if (!body && !title || !browser){
@@ -27,7 +29,8 @@
         $processedLines = data.lines as LyricLine[];
     }
 
-    $: processLyric($title, $body);
+
+    $: debouncedProcessLyric($title, $body);
 
 
 

@@ -19,7 +19,12 @@ var (
 func Syllabificate(input string) []string {
 	normalizedInput := removeCharactersPattern.ReplaceAllString(strings.ToLower(input), "")
 
+	if normalizedInput == "ao" { //exceção
+		return []string{"ao"}
+	}
+
 	inputRunes := []rune(normalizedInput)
+
 	inputUnaccentedRunes := []rune(utils.RemoveAccents(normalizedInput))
 
 	hasVowel := false

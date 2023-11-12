@@ -37,3 +37,14 @@ func TestProparoxytones(t *testing.T) {
 		}
 	}
 }
+
+func TestAtones(t *testing.T) {
+	atones := []string{"a", "e", "o", "as", "os", "ao"}
+	for _, atone := range atones {
+		syllables := Syllabificate(atone)
+
+		if DetectStress(syllables) != Atone {
+			t.Errorf("DetectStress(%v) = %v; expected %v", syllables, DetectStress(syllables), Atone)
+		}
+	}
+}

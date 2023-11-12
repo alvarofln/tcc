@@ -3,13 +3,16 @@ package word
 type StressType int
 
 const (
-	Oxytone       StressType = iota
-	Paroxytone               = 1
-	Proparoxytone            = 2
+	Atone StressType = iota - 1
+	Oxytone
+	Paroxytone
+	Proparoxytone
 )
 
 func (sc StressType) String() string {
 	switch sc {
+	case Atone:
+		return "Atone"
 	case Oxytone:
 		return "Oxytone"
 	case Paroxytone:

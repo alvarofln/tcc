@@ -66,6 +66,7 @@ func TestSyllabificate(t *testing.T) {
 		{"guaraná", []string{"gua", "ra", "ná"}},
 		{"oxítona", []string{"o", "xí", "to", "na"}},
 		{"Piauí", []string{"pi", "au", "í"}},
+		{"ao", []string{"ao"}},
 	}
 
 	for _, test := range tests {

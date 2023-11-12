@@ -31,6 +31,21 @@ type Word struct {
 	StressType StressType `json:"stressType"`
 }
 
+func (w *Word) String() string {
+	var word string
+	for i, syllable := range w.Syllables {
+		stressedIndex := len(w.Syllables) - int(w.StressType) - 1
+		if i > 0 {
+			word += "-"
+		}
+		if i == stressedIndex {
+			word += "'"
+		}
+		word += syllable
+	}
+	return word
+}
+
 func NewWord(id int64, name string, syllables []string, stressType StressType) *Word {
 	return &Word{
 		ID:         id,

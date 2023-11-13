@@ -6,7 +6,6 @@ const (
 	Vowel TokenType = iota + 1
 	SemiVowel
 	Consonant
-	Digraph
 	Separator
 )
 
@@ -23,8 +22,6 @@ func (t Token) String() string {
 		return "[S]"
 	case Consonant:
 		return "[C]"
-	case Digraph:
-		return "[D]"
 	case Separator:
 		return "[SEP]"
 	default:

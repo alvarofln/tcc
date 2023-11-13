@@ -7,13 +7,13 @@ import (
 )
 
 var (
-	digraphVowelPattern     = regexp.MustCompile(`^([bcdfgptvw][rl]|[lcntw]h|[gq]u)[aeiou]`) //detecta inicio da silaba que contem encontro consonantal inseparavel D + V
-	consonantVowelPattern   = regexp.MustCompile(`^[^aeiou][aeiou]`)                         //detecta inicio da silaba que contem C + V
-	nasalEOPattern          = regexp.MustCompile(`^(?:[ãõ]e|ão)`)                            // casos onde o e u são semivogais  V + S
-	vowelIPattern           = regexp.MustCompile(`^i([nzlrm]([^aeiou]|$)|u)`)
-	vowelUPattern           = regexp.MustCompile(`^u[nzlrm]([^aeiou]|$)`)
-	hasVowelPattern         = regexp.MustCompile(`[aeiou]`)
-	removeCharactersPattern = regexp.MustCompile(`[^a-záâãàéêíóôõúüç]`)
+	consonantClusterVowelPattern = regexp.MustCompile(`^([bcdfgptvw][rl]|[lcntw]h|[gq]u)[aeiou]`) //detecta inicio da silaba que contem padrões inseparaveis + V
+	consonantVowelPattern        = regexp.MustCompile(`^[^aeiou][aeiou]`)                         //detecta inicio da silaba que contem C + V
+	nasalEOPattern               = regexp.MustCompile(`^([ãõ]e|ão)`)                              // casos onde o e u são semivogais  V + S
+	vowelIPattern                = regexp.MustCompile(`^i([nzlrm]([^aeiou]|$)|u)`)
+	vowelUPattern                = regexp.MustCompile(`^u[nzlrm]([^aeiou]|$)`)
+	hasVowelPattern              = regexp.MustCompile(`[aeiou]`)
+	removeCharactersPattern      = regexp.MustCompile(`[^a-záâãàéêíóôõúüç]`)
 )
 
 func Syllabificate(input string) []string {
@@ -38,11 +38,11 @@ func Syllabificate(input string) []string {
 		currentWordRunes := inputRunes[i:]                        //accented
 		currentWordUnaccented := string(inputUnaccentedRunes[i:]) //unaccented
 
-		if digraphVowelPattern.MatchString(currentWordUnaccented) {
+		if consonantClusterVowelPattern.MatchString(currentWordUnaccented) {
 			if hasVowel {
 				tokens = append(tokens, Token{Separator, "-"})
 			}
-			tokens = append(tokens, Token{Digraph, string(currentWordRunes[:2])})
+			tokens = append(tokens, Token{Consonant, string(currentWordRunes[:2])})
 			tokens = append(tokens, Token{Vowel, string(currentWordRunes[2:3])})
 			hasVowel = true
 			i += 2

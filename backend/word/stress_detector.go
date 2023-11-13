@@ -8,7 +8,7 @@ import (
 var (
 	iuoPattern   = regexp.MustCompile(`.*([iu](s|m|ns)?|o(m|ns))$`)
 	aeoPattern   = regexp.MustCompile(`.*([ae](s|m|ns)?|os?)$`)
-	atonePattern = regexp.MustCompile(`^(o|a|e|os|ou|as|ao|do|da|de|em|no|nos|me|te|lhe|lhes|que|se|sem|com|vos)$`) //and many others :)
+	atonePattern = regexp.MustCompile(`^(o|a|e|os|ou|as|ao|do|da|de|em|no|nos|me|te|lhe|lhes|que|se|sem|com|vos|mas)$`) //and many others :)
 )
 
 func DetectStress(syllables []string) StressType {

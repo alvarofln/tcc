@@ -9,11 +9,11 @@ import (
 var (
 	consonantClusterVowelPattern = regexp.MustCompile(`^([bcdfgptvw][rl]|[lcntw]h|[gq]u)[aeiou]`) //detecta inicio da silaba que contem padrões inseparaveis + V
 	consonantVowelPattern        = regexp.MustCompile(`^[^aeiou][aeiou]`)                         //detecta inicio da silaba que contem C + V
-	nasalEOPattern               = regexp.MustCompile(`^([ãõ]e|ão)`)                              // casos onde o e u são semivogais  V + S
-	vowelIPattern                = regexp.MustCompile(`^i([nzlrm]([^aeiou]|$)|u)`)
-	vowelUPattern                = regexp.MustCompile(`^u[nzlrm]([^aeiou]|$)`)
-	hasVowelPattern              = regexp.MustCompile(`[aeiou]`)
-	removeCharactersPattern      = regexp.MustCompile(`[^a-záâãàéêíóôõúüç]`)
+	nasalEOPattern               = regexp.MustCompile(`^([ãõ]e|ão)`)                              //casos onde 'e' e 'o' são semivogais  V + S
+	vowelIPattern                = regexp.MustCompile(`^i([nzlrm]([^aeiou]|$)|u)`)                //caso em que o 'i' é vogal
+	vowelUPattern                = regexp.MustCompile(`^u[nzlrm]([^aeiou]|$)`)                    //caso em que o 'u' é vogal
+	hasVowelPattern              = regexp.MustCompile(`[aeiou]`)                                  //detecta se a string tem vogal
+	removeCharactersPattern      = regexp.MustCompile(`[^a-záâãàéêíóôõúüç]`)                      //remove caracteres especiais
 )
 
 func Syllabificate(input string) []string {
@@ -24,9 +24,7 @@ func Syllabificate(input string) []string {
 	}
 
 	inputRunes := []rune(normalizedInput)
-
 	inputUnaccentedRunes := []rune(utils.RemoveAccents(normalizedInput))
-
 	hasVowel := false
 
 	var tokens []Token

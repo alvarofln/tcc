@@ -5,8 +5,6 @@
 	import type { LyricLine } from "$lib/models";
     import { title, body, processedLines } from "$lib/stores/LyricStore";
 
-   
-
     const debouncedProcessLyric = debounce((title : string, body: string) => processLyric(title, body), 500);
 
     async function processLyric(title: string, body: string) {
@@ -21,19 +19,14 @@
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({title, body})
-        }
-        )
+        })
 
-      
         const data = await response.json();
         $processedLines = data.lines as LyricLine[];
     }
 
-
-    $: debouncedProcessLyric($title, $body);
-
-
-
+    $: debouncedProcessLyric($title, $body)
+    
 </script>
 <label class="label">
     <span>Título</span>
